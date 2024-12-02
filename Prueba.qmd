@@ -1,0 +1,43 @@
+---
+title: "Prueba"
+format:
+  revealjs:
+    embed-resources: true
+editor: visual
+execute: 
+  echo: true
+---
+
+## Carga de datos
+
+Datos de los accidentes de la ciudad de Madrid del año 2020
+```{r}
+library(tidyverse)
+library(ggthemes)
+datos <- read_csv(file = "../Gibhub/datos/accidentes.csv")
+datos
+```
+Las tres barras es cabio de diapositiva
+
+---
+
+## Resumen de los datos
+
+```{r}
+resumen <- datos |> count(sexo)
+resumen
+```
+
+---
+
+## Visualizacion
+
+```{r}
+#| code-fold: true
+gg <- ggplot(resumen) +
+  geom_col(aes(x = sexo, y = n, fill = sexo), alpha = 0.7) +
+  ggthemes::scale_fill_colorblind() +
+  theme_minimal()
+plotly::ggplotly(gg)
+```
+
